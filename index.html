@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Limuru Cycling Club — Ex UK Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #2d6a2d;
+    --green-dark: #1a3d1a;
+    --green-light: #4a8c3f;
+    --green-pale: #e8f3e8;
+    --gold: #c8981a;
+    --gold-light: #f0be3a;
+    --cream: #faf8f2;
+    --dark: #141414;
+    --dark2: #1e1e1e;
+    --mid: #3a3a3a;
+    --muted: #888;
+    --white: #ffffff;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+    --font-condensed: 'Barlow Condensed', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--dark);
+    color: var(--white);
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ─── SCROLLBAR ─────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--dark2); }
+  ::-webkit-scrollbar-thumb { background: var(--green-light); border-radius: 3px; }
+
+  /* ─── PAGE SYSTEM ───────────────────────── */
+  .page { display: none; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* ─── NAV ───────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(20,20,20,0.97);
+    border-bottom: 2px solid var(--green);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem;
+    height: 70px;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    letter-spacing: 0.08em;
+    color: var(--gold-light);
+    cursor: pointer;
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  .nav-logo span.dot { color: var(--green-light); }
+  .nav-wheel {
+    width: 38px; height: 38px;
+    border: 3px solid var(--green-light);
+    border-radius: 50%;
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .nav-wheel::before {
+    content: '';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+  .nav-wheel::after {
+    content: '';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%) rotate(45deg);
+    width: 2px; height: 100%;
+    background: var(--green-light);
+    box-shadow: 18px 0 0 var(--green-light), -18px 0 0 var(--green-light);
+  }
+  .nav-links { display: flex; gap: 0; }
+  .nav-link {
+    font-family: var(--font-condensed);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #ccc;
+    padding: 0 1.1rem;
+    height: 70px;
+    display: flex; align-items: center;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s;
+    border-bottom: 3px solid transparent;
+    margin-top: 3px;
+  }
+  .nav-link:hover, .nav-link.active {
+    color: var(--gold-light);
+    border-bottom-color: var(--gold-light);
+  }
+  .nav-cta {
+    background: var(--green);
+    color: var(--white);
+    padding: 0.55rem 1.4rem;
+    font-family: var(--font-condensed);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: none; cursor: pointer;
+    transition: background 0.2s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .nav-cta:hover { background: var(--green-light); }
+
+  /* ─── HERO ──────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative; overflow: hidden;
+    padding-top: 70px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #0a1a0a 0%, #1a3020 40%, #0d1f0d 100%);
+  }
+  .hero-texture {
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 60px,
+      rgba(45,106,45,0.04) 60px,
+      rgba(45,106,45,0.04) 61px
+    );
+  }
+  .hero-circle-1 {
+    position: absolute;
+    width: 600px; height: 600px;
+    border: 1px solid rgba(45,106,45,0.2);
+    border-radius: 50%;
+    top: -100px; right: -100px;
+  }
+  .hero-circle-2 {
+    position: absolute;
+    width: 900px; height: 900px;
+    border: 1px solid rgba(45,106,45,0.1);
+    border-radius: 50%;
+    top: -250px; right: -250px;
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 4rem 3rem;
+    max-width: 900px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(45,106,45,0.25);
+    border: 1px solid var(--green-light);
+    color: var(--green-light);
+    font-family: var(--font-condensed);
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    margin-bottom: 1.8rem;
+  }
+  .hero-badge::before { content: '◆'; font-size: 0.5rem; }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 10vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+  .hero-title em {
+    font-style: normal;
+    color: var(--gold-light);
+    display: block;
+  }
+  .hero-sub {
+    font-family: var(--font-condensed);
+    font-size: clamp(1.1rem, 2.5vw, 1.7rem);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 2rem;
+    margin-top: 0.8rem;
+  }
+  .hero-desc {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.7);
+    max-width: 540px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--green);
+    color: white;
+    font-family: var(--font-condensed);
+    font-weight: 700; font-size: 0.95rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    border: none; cursor: pointer;
+    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--green-light); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--gold-light);
+    font-family: var(--font-condensed);
+    font-weight: 700; font-size: 0.95rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    border: 2px solid var(--gold);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { background: var(--gold); color: var(--dark); }
+
+  .hero-stats {
+    position: absolute; bottom: 3rem; right: 3rem; z-index: 2;
+    display: flex; gap: 2.5rem;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat .num {
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+  .hero-stat .label {
+    font-family: var(--font-condensed);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.2rem;
+  }
+
+  /* ─── SECTIONS ──────────────────────────── */
+  .section {
+    padding: 5rem 3rem;
+  }
+  .section-alt {
+    background: var(--dark2);
+  }
+  .section-green {
+    background: var(--green-dark);
+  }
+  .section-label {
+    font-family: var(--font-condensed);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 0.8rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block; width: 30px; height: 2px;
+    background: var(--green-light);
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: 0.03em;
+    margin-bottom: 1.5rem;
+  }
+  .section-title span { color: var(--gold-light); }
+  .section-desc {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.65);
+    max-width: 600px;
+    line-height: 1.75;
+    margin-bottom: 3rem;
+  }
+
+  /* ─── FEATURE CARDS ─────────────────────── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5px;
+    background: rgba(45,106,45,0.2);
+    border: 1px solid rgba(45,106,45,0.2);
+  }
+  .feat-card {
+    background: var(--dark);
+    padding: 2.5rem 2rem;
+    transition: background 0.25s;
+  }
+  .feat-card:hover { background: rgba(45,106,45,0.1); }
+  .feat-icon {
+    width: 52px; height: 52px;
+    background: var(--green-dark);
+    border: 1px solid var(--green);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+  }
+  .feat-card h3 {
+    font-family: var(--font-condensed);
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    color: var(--white);
+  }
+  .feat-card p { font-size: 0.92rem; color: rgba(255,255,255,0.55); line-height: 1.65; }
+
+  /* ─── IMAGE SLOT ────────────────────────── */
+  .img-slot {
+    width: 100%; aspect-ratio: 16/9;
+    background: rgba(45,106,45,0.08);
+    border: 2px dashed rgba(45,106,45,0.35);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 0.8rem; color: rgba(255,255,255,0.3);
+    font-family: var(--font-condensed);
+    font-size: 0.85rem; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    position: relative; overflow: hidden;
+  }
+  .img-slot::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 40%, rgba(45,106,45,0.05));
+  }
+  .img-slot .icon { font-size: 2.5rem; opacity: 0.4; }
+  .img-slot-sm { aspect-ratio: 4/3; }
+  .img-slot-sq { aspect-ratio: 1/1; }
+
+  /* ─── IMAGE GRID ────────────────────────── */
+  .img-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .img-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  /* ─── TERRAIN SECTION ───────────────────── */
+  .terrain-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .terrain-text h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.05;
+    margin-bottom: 1.2rem;
+  }
+  .terrain-text p {
+    color: rgba(255,255,255,0.65);
+    line-height: 1.75;
+    margin-bottom: 1.2rem;
+    font-size: 0.98rem;
+  }
+  .route-tag {
+    display: inline-block;
+    background: rgba(45,106,45,0.25);
+    border: 1px solid rgba(74,140,63,0.4);
+    color: var(--green-light);
+    font-family: var(--font-condensed);
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 0.35rem 0.9rem;
+    margin: 0.2rem 0.2rem 0.2rem 0;
+  }
+
+  /* ─── BIKES GRID ────────────────────────── */
+  .bikes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5px;
+    background: rgba(200,152,26,0.15);
+    border: 1px solid rgba(200,152,26,0.2);
+    margin-top: 3rem;
+  }
+  .bike-card {
+    background: var(--dark);
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .bike-card:hover { background: rgba(200,152,26,0.06); }
+  .bike-img-slot {
+    width: 100%; aspect-ratio: 4/3;
+    background: rgba(200,152,26,0.05);
+    border-bottom: 1px solid rgba(200,152,26,0.15);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 0.6rem; color: rgba(255,255,255,0.25);
+    font-family: var(--font-condensed);
+    font-size: 0.75rem; letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .bike-img-slot .icon { font-size: 2rem; opacity: 0.35; }
+  .bike-info { padding: 1.5rem; }
+  .bike-category {
+    font-family: var(--font-condensed);
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+  .bike-name {
+    font-family: var(--font-condensed);
+    font-size: 1.25rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .bike-desc { font-size: 0.88rem; color: rgba(255,255,255,0.5); line-height: 1.55; }
+  .bike-price {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--gold-light);
+    margin-top: 1rem;
+  }
+  .bike-price sup { font-family: var(--font-condensed); font-size: 0.9rem; vertical-align: super; }
+
+  /* ─── MEMBERS ───────────────────────────── */
+  .member-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .member-card {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.07);
+    text-align: center;
+    padding: 2rem 1rem 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .member-card:hover { border-color: var(--green); transform: translateY(-4px); }
+  .member-avatar {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    background: linear-gradient(135deg, var(--green-dark), var(--green-light));
+    border: 3px solid var(--green);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--gold-light);
+  }
+  .member-name {
+    font-family: var(--font-condensed);
+    font-size: 1rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .member-role {
+    font-size: 0.78rem;
+    color: var(--green-light);
+    font-family: var(--font-condensed);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  /* ─── TRAINING SCHEDULE ─────────────────── */
+  .schedule-table {
+    width: 100%; border-collapse: collapse;
+    margin-top: 2rem;
+  }
+  .schedule-table th {
+    font-family: var(--font-condensed);
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--green-light);
+    text-align: left; padding: 0.8rem 1.2rem;
+    border-bottom: 2px solid var(--green);
+    background: rgba(45,106,45,0.1);
+  }
+  .schedule-table td {
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 0.92rem;
+    vertical-align: middle;
+  }
+  .schedule-table tr:hover td { background: rgba(45,106,45,0.06); }
+  .day-badge {
+    font-family: var(--font-condensed);
+    font-weight: 700; font-size: 0.8rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    background: var(--green-dark);
+    color: var(--green-light);
+    padding: 0.25rem 0.7rem;
+    border-left: 3px solid var(--green-light);
+  }
+  .level-badge {
+    font-family: var(--font-condensed);
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.2rem 0.7rem;
+  }
+  .level-beginner { background: rgba(45,106,45,0.2); color: #7dc97d; }
+  .level-intermediate { background: rgba(200,152,26,0.15); color: var(--gold); }
+  .level-advanced { background: rgba(180,60,60,0.15); color: #e06060; }
+
+  /* ─── REPAIRS ───────────────────────────── */
+  .repair-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  .repair-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 1.4rem;
+    transition: border-color 0.2s;
+  }
+  .repair-item:hover { border-color: rgba(45,106,45,0.5); }
+  .repair-num {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: rgba(45,106,45,0.4);
+    line-height: 1;
+    flex-shrink: 0;
+    min-width: 2.5rem;
+  }
+  .repair-item h4 {
+    font-family: var(--font-condensed);
+    font-size: 1rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .repair-item p { font-size: 0.86rem; color: rgba(255,255,255,0.5); line-height: 1.55; }
+
+  /* ─── EVENTS SECTION ────────────────────── */
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  .event-card {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .event-card:hover { transform: translateY(-4px); border-color: var(--green); }
+  .event-img { width: 100%; aspect-ratio: 16/9; }
+  .event-body { padding: 1.5rem; }
+  .event-date {
+    font-family: var(--font-condensed);
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .event-body h3 {
+    font-family: var(--font-condensed);
+    font-size: 1.2rem; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .event-body p { font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.55; }
+
+  /* ─── TESTIMONIALS ──────────────────────── */
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .testi-card {
+    background: var(--dark2);
+    border-left: 3px solid var(--green);
+    padding: 2rem;
+  }
+  .testi-text {
+    font-size: 0.98rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.75;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+  .testi-author {
+    font-family: var(--font-condensed);
+    font-size: 0.85rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--green-light);
+  }
+  .stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 1rem; }
+
+  /* ─── CONTACT ───────────────────────────── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .contact-info-item {
+    display: flex; gap: 1.2rem;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+  }
+  .contact-icon {
+    width: 48px; height: 48px; flex-shrink: 0;
+    background: rgba(45,106,45,0.2);
+    border: 1px solid rgba(45,106,45,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .contact-info-item h4 {
+    font-family: var(--font-condensed);
+    font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 0.3rem;
+  }
+  .contact-info-item p { font-size: 0.92rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+  /* ─── FORM ──────────────────────────────── */
+  .form-group { margin-bottom: 1.4rem; }
+  .form-group label {
+    display: block;
+    font-family: var(--font-condensed);
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 0.5rem;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%; padding: 0.85rem 1rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus { border-color: var(--green-light); }
+  .form-group textarea { height: 130px; resize: vertical; }
+  .form-group select option { background: var(--dark2); }
+
+  /* ─── GALLERY ───────────────────────────── */
+  .gallery-masonry {
+    columns: 3;
+    column-gap: 1rem;
+    margin-top: 3rem;
+  }
+  .gallery-item {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+  }
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+  .gallery-overlay {
+    position: absolute; inset: 0;
+    background: rgba(45,106,45,0.6);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.2s;
+    font-family: var(--font-condensed);
+    font-size: 0.85rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: white;
+  }
+
+  /* ─── SHOP HIGHLIGHT ────────────────────── */
+  .shop-highlight {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid rgba(200,152,26,0.25);
+    overflow: hidden;
+    margin-top: 3rem;
+  }
+  .shop-img-side { background: rgba(200,152,26,0.05); min-height: 400px; }
+  .shop-text-side {
+    background: rgba(200,152,26,0.04);
+    border-left: 1px solid rgba(200,152,26,0.2);
+    padding: 3.5rem;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .shop-text-side h2 {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    line-height: 1;
+    margin-bottom: 1.2rem;
+  }
+  .shop-text-side p { font-size: 0.95rem; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 1rem; }
+  .location-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(200,152,26,0.1);
+    border: 1px solid rgba(200,152,26,0.3);
+    color: var(--gold);
+    font-family: var(--font-condensed);
+    font-size: 0.82rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    margin-bottom: 0.5rem;
+    display: block; width: fit-content;
+  }
+
+  /* ─── DIVIDER ───────────────────────────── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(45,106,45,0.4), transparent);
+    margin: 0;
+  }
+
+  /* ─── FOOTER ────────────────────────────── */
+  footer {
+    background: #0d0d0d;
+    border-top: 2px solid var(--green-dark);
+    padding: 4rem 3rem 2rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer-brand p {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+    margin-top: 1rem;
+  }
+  footer h4 {
+    font-family: var(--font-condensed);
+    font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  footer ul { list-style: none; }
+  footer li {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 0.55rem;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  footer li:hover { color: var(--green-light); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 1.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.3);
+    font-family: var(--font-condensed);
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── PAGE TRANSITIONS ──────────────────── */
+  .page { animation: fadeIn 0.35s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+  /* ─── HERO TERRAIN IMAGE BOX ────────────── */
+  .hero-visual {
+    position: absolute;
+    right: 3rem; top: 50%; transform: translateY(-50%);
+    width: 420px; z-index: 3;
+    margin-top: 35px;
+  }
+  .hero-visual .img-slot { aspect-ratio: 3/4; }
+  .hero-visual-caption {
+    font-family: var(--font-condensed);
+    font-size: 0.7rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: rgba(255,255,255,0.3);
+    margin-top: 0.5rem; text-align: center;
+  }
+
+  /* ─── ABOUT PAGE ────────────────────────── */
+  .about-hero {
+    padding: 9rem 3rem 5rem;
+    background: linear-gradient(to bottom, rgba(26,61,26,0.7), var(--dark));
+    position: relative; overflow: hidden;
+  }
+  .about-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 7vw, 7rem);
+    line-height: 0.95;
+  }
+  .about-hero h1 em { font-style: normal; color: var(--gold-light); }
+  .about-hero .sub {
+    font-family: var(--font-condensed);
+    font-size: 1.2rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--green-light);
+    margin-top: 0.8rem;
+  }
+
+  /* ─── UTILITY ───────────────────────────── */
+  .mt-1 { margin-top: 1rem; }
+  .mt-2 { margin-top: 2rem; }
+  .mt-3 { margin-top: 3rem; }
+  .mb-1 { margin-bottom: 1rem; }
+  .text-gold { color: var(--gold-light); }
+  .text-green { color: var(--green-light); }
+  .flex { display: flex; }
+  .gap-1 { gap: 1rem; }
+  .wrap { flex-wrap: wrap; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .section { padding: 3.5rem 1.5rem; }
+    .hero-content { padding: 3rem 1.5rem; }
+    .hero-visual { display: none; }
+    .hero-stats { bottom: 2rem; right: 1.5rem; gap: 1.5rem; }
+    .terrain-block, .contact-grid, .shop-highlight { grid-template-columns: 1fr; }
+    .shop-text-side { border-left: none; border-top: 1px solid rgba(200,152,26,0.2); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-masonry { columns: 2; }
+    .img-grid-3 { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     NAV
+════════════════════════════════════════════ -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">
+    <div class="nav-wheel"></div>
+    LCC
+  </div>
+  <div class="nav-links">
+    <div class="nav-link active" onclick="navTo(this,'home')">Home</div>
+    <div class="nav-link" onclick="navTo(this,'about')">About</div>
+    <div class="nav-link" onclick="navTo(this,'shop')">Shop</div>
+    <div class="nav-link" onclick="navTo(this,'club')">Club</div>
+    <div class="nav-link" onclick="navTo(this,'trails')">Trails</div>
+    <div class="nav-link" onclick="navTo(this,'repairs')">Repairs</div>
+    <div class="nav-link" onclick="navTo(this,'gallery')">Gallery</div>
+    <div class="nav-link" onclick="navTo(this,'contact')">Contact</div>
+  </div>
+  <button class="nav-cta" onclick="navTo(document.querySelector('.nav-link:nth-child(4)'),'club')">Join the Club</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     HOME PAGE
+════════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-texture"></div>
+    <div class="hero-circle-1"></div>
+    <div class="hero-circle-2"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">Limuru · Kenya Highlands · Est. 2015</div>
+      <h1 class="hero-title">
+        LIMURU<br>
+        <em>CYCLING</em><br>
+        CLUB
+      </h1>
+      <div class="hero-sub">Ride The Highlands. Feel The Freedom.</div>
+      <p class="hero-desc">
+        Based in the lush green hills of Limuru, we sell premium ex-UK bikes, host weekly training rides, and organise breathtaking outdoor adventures through tea country, forests and highland terrain.
+      </p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="navTo(document.querySelector('.nav-link:nth-child(4)'),'club')">Join The Club</button>
+        <button class="btn-outline" onclick="navTo(document.querySelector('.nav-link:nth-child(3)'),'shop')">Browse Bikes</button>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="img-slot">
+        <span class="icon">🚴</span>
+        <span>Hero image — riders in tea country</span>
+      </div>
+      <p class="hero-visual-caption">Limuru Tea Estates — every ride is a postcard</p>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num">120+</div>
+        <div class="label">Club Members</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">8</div>
+        <div class="label">Weekly Rides</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">500+</div>
+        <div class="label">Bikes Sold</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE OFFER -->
+  <section class="section">
+    <div class="section-label">Everything You Need</div>
+    <h2 class="section-title">MORE THAN JUST<br><span>A BIKE SHOP</span></h2>
+    <p class="section-desc">From ex-UK imported bikes at competitive prices, to guided trail rides through Limuru's spectacular scenery — we're a full cycling community.</p>
+
+    <div class="card-grid">
+      <div class="feat-card">
+        <div class="feat-icon">🚲</div>
+        <h3>Ex UK Bikes</h3>
+        <p>Quality pre-owned bicycles imported from the UK — mountain bikes, road bikes, hybrids, and kids bikes at unbeatable prices. All bikes are checked and road-ready.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🛠️</div>
+        <h3>Repair Workshop</h3>
+        <p>Full service workshop on-site. Punctures, brake adjustments, gear tuning, complete overhauls — our mechanics handle it all with care and speed.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🏆</div>
+        <h3>Club & Training</h3>
+        <p>Join our active club. Weekly training sessions, coached group rides, beginner to advanced programmes designed for Limuru's varied terrain.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🌿</div>
+        <h3>Outdoor Adventures</h3>
+        <p>Guided rides through Limuru's tea estates, forests and highland villages. Group expeditions, sunrise rides, and seasonal events across the Rift Valley ridge.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">⚙️</div>
+        <h3>Parts & Accessories</h3>
+        <p>Helmets, gloves, lights, locks, tyres, chains, pedals and more. We stock what riders actually need at fair prices — and can order what we don't have.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📦</div>
+        <h3>Bike Fitting</h3>
+        <p>Get the right fit for your body and riding style. Our staff will size you up properly so every ride is comfortable and efficient — especially important on hilly Limuru roads.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- TERRAIN TASTE -->
+  <section class="section section-alt">
+    <div class="terrain-block">
+      <div class="terrain-text">
+        <div class="section-label">Highland Trails</div>
+        <h2>RIDE THE<br><span class="text-gold">TEA COUNTRY</span></h2>
+        <p>Limuru sits at over 2,400 metres above sea level. Our trails wind through some of the most scenic cycling terrain in Kenya — misty tea estates, eucalyptus forests, red-earth tracks and sweeping valley views.</p>
+        <p>Every weekend, club members set out on routes that would rival anything in Europe — and this is home turf. No plane ticket required.</p>
+        <div style="margin-top:1.2rem; display:flex; flex-wrap:wrap; gap:0.4rem;">
+          <span class="route-tag">Tea Estates Loop</span>
+          <span class="route-tag">Tigoni Forest Track</span>
+          <span class="route-tag">Kereita Descent</span>
+          <span class="route-tag">Kinale Ridge</span>
+          <span class="route-tag">Uplands Circuit</span>
+          <span class="route-tag">Rift Valley Rim</span>
+        </div>
+        <button class="btn-primary mt-2" onclick="navTo(document.querySelector('.nav-link:nth-child(5)'),'trails')">Explore All Trails</button>
+      </div>
+      <div>
+        <div class="img-slot" style="aspect-ratio:4/5;">
+          <span class="icon">🌿</span>
+          <span>Limuru Tea Estates — trail image</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK SHOP PREVIEW -->
+  <section class="section">
+    <div class="section-label">Latest Stock</div>
+    <h2 class="section-title">EX UK BIKES<br><span>IN STOCK NOW</span></h2>
+    <div class="bikes-grid">
+      <div class="bike-card">
+        <div class="bike-img-slot">
+          <span class="icon">🚵</span>
+          <span>Mountain Bike Photo</span>
+        </div>
+        <div class="bike-info">
+          <div class="bike-category">Mountain Bike</div>
+          <div class="bike-name">Hardtail MTB 29"</div>
+          <p class="bike-desc">Full alloy frame, 21-speed Shimano, front suspension fork. Perfect for Limuru trails.</p>
+          <div class="bike-price"><sup>KSh </sup>18,500</div>
+        </div>
+      </div>
+      <div class="bike-card">
+        <div class="bike-img-slot">
+          <span class="icon">🚴</span>
+          <span>Road Bike Photo</span>
+        </div>
+        <div class="bike-info">
+          <div class="bike-category">Road Bike</div>
+          <div class="bike-name">Lightweight Road Racer</div>
+          <p class="bike-desc">Lightweight aluminium frame, drop handlebars, 16-speed. Eat up those highland roads.</p>
+          <div class="bike-price"><sup>KSh </sup>22,000</div>
+        </div>
+      </div>
+      <div class="bike-card">
+        <div class="bike-img-slot">
+          <span class="icon">🚲</span>
+          <span>Hybrid Bike Photo</span>
+        </div>
+        <div class="bike-info">
+          <div class="bike-category">Hybrid</div>
+          <div class="bike-name">Urban Hybrid 700c</div>
+          <p class="bike-desc">Comfortable all-rounder. Commute to town, then hit the trails on weekends.</p>
+          <div class="bike-price"><sup>KSh </sup>14,000</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:2rem;">
+      <button class="btn-outline" onclick="navTo(document.querySelector('.nav-link:nth-child(3)'),'shop')">See Full Inventory →</button>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section section-green">
+    <div class="section-label">What Members Say</div>
+    <h2 class="section-title">THE <span>COMMUNITY</span><br>SPEAKS</h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"Bought my mountain bike here — ex-UK quality at a fraction of the price. The team checked it over and adjusted everything before I rode off. Been riding with the club every Saturday since."</p>
+        <div class="testi-author">James M. — Limuru</div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"The Sunday tea estate ride is honestly one of the most beautiful things I've done in Kenya. I didn't even know routes like that existed 20 minutes from Nairobi. Incredible community."</p>
+        <div class="testi-author">Wanjiku N. — Kiambu</div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"Brought in a bike with a completely seized bottom bracket. They fixed it same day, gave it a full check and didn't charge an arm and a leg. These guys are the real deal."</p>
+        <div class="testi-author">Peter O. — Nairobi</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.6rem;">
+          <div class="nav-wheel"></div> LCC
+        </div>
+        <p>Limuru Cycling Club — where Kenya's highland cycling community gathers. Ex UK bikes, expert repairs, and unforgettable outdoor rides through Limuru's famous tea country.</p>
+      </div>
+      <div>
+        <h4>Navigate</h4>
+        <ul>
+          <li onclick="navTo(document.querySelectorAll('.nav-link')[0],'home')">Home</li>
+          <li onclick="navTo(document.querySelectorAll('.nav-link')[1],'about')">About Us</li>
+          <li onclick="navTo(document.querySelectorAll('.nav-link')[2],'shop')">Bike Shop</li>
+          <li onclick="navTo(document.querySelectorAll('.nav-link')[3],'club')">Club & Training</li>
+          <li onclick="navTo(document.querySelectorAll('.nav-link')[4],'trails')">Trails & Outdoors</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li onclick="navTo(document.querySelectorAll('.nav-link')[5],'repairs')">Bike Repairs</li>
+          <li onclick="navTo(document.querySelectorAll('.nav-link')[6],'gallery')">Gallery</li>
+          <li onclick="navTo(document.querySelectorAll('.nav-link')[7],'contact')">Contact</li>
+          <li>Bike Fitting</li>
+          <li>Parts & Accessories</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Find Us</h4>
+        <ul>
+          <li>Ex UK Shop, Limuru Town</li>
+          <li>Opposite Njengi Plaza</li>
+          <li>Opposite Bata Shoe Company</li>
+          <li>Mon–Sat: 7am–7pm</li>
+          <li>Sun: 7am–5pm</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Limuru Cycling Club. All rights reserved.</span>
+      <span>Limuru · Kenya Highlands · Est. 2015</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     ABOUT PAGE
+════════════════════════════════════════════ -->
+<div id="page-about" class="page">
+  <div class="about-hero">
+    <div class="section-label">Our Story</div>
+    <h1>ABOUT <em>LIMURU<br>CYCLING CLUB</em></h1>
+    <p class="sub">Where the Highlands Meet Two Wheels</p>
+  </div>
+
+  <section class="section">
+    <div class="terrain-block">
+      <div>
+        <div class="img-slot" style="aspect-ratio:1/1;">
+          <span class="icon">🏔️</span>
+          <span>Shop & Team Photo</span>
+        </div>
+      </div>
+      <div class="terrain-text">
+        <div class="section-label">Who We Are</div>
+        <h2>BORN FROM A<br><span class="text-gold">LOVE OF THE HILLS</span></h2>
+        <p>Limuru Cycling Club started as a small group of passionate cyclists who wanted to explore the incredible terrain on their doorstep. What began with a handful of friends and a few bikes has grown into the premier cycling community in Kenya's central highlands.</p>
+        <p>Our shop — the Ex UK Shop, right opposite Njengi Plaza and the Bata Shoe Company in Limuru Town — was born out of necessity. We wanted quality bikes at prices that Kenyan riders could afford. So we started importing directly from the UK, selecting bikes with care and making sure everything was ride-ready before selling.</p>
+        <p>Today we're a club, a shop, a repair workshop, and a community all rolled into one. Whether you're a first-time rider or a seasoned cyclist, this is your home.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section section-alt">
+    <div class="section-label">The Team</div>
+    <h2 class="section-title">MEET OUR<br><span>PEOPLE</span></h2>
+    <p class="section-desc">The dedicated crew behind Limuru Cycling Club — mechanics, coaches, and trail guides.</p>
+    <div class="member-grid">
+      <div class="member-card">
+        <div class="member-avatar">JK</div>
+        <div class="member-name">John Kamau</div>
+        <div class="member-role">Founder & Head Coach</div>
+      </div>
+      <div class="member-card">
+        <div class="member-avatar">GW</div>
+        <div class="member-name">Grace Wangari</div>
+        <div class="member-role">Shop Manager</div>
+      </div>
+      <div class="member-card">
+        <div class="member-avatar">PM</div>
+        <div class="member-name">Peter Mwangi</div>
+        <div class="member-role">Head Mechanic</div>
+      </div>
+      <div class="member-card">
+        <div class="member-avatar">AN</div>
+        <div class="member-name">Anne Njeri</div>
+        <div class="member-role">Trail Guide</div>
+      </div>
+      <div class="member-card">
+        <div class="member-avatar">DK</div>
+        <div class="member-name">David Kariuki</div>
+        <div class="member-role">Youth Coach</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Our Values</div>
+    <h2 class="section-title">WHAT WE<br><span>STAND FOR</span></h2>
+    <div class="card-grid">
+      <div class="feat-card">
+        <div class="feat-icon">🌍</div>
+        <h3>Community First</h3>
+        <p>Every decision we make is about growing and supporting the Limuru cycling community — riders of all ages, genders and abilities are welcome here.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔧</div>
+        <h3>Quality & Honesty</h3>
+        <p>We only sell bikes we'd ride ourselves. Every ex-UK bike is checked, serviced and honestly priced. No surprises, no hidden problems.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🌿</div>
+        <h3>Love the Land</h3>
+        <p>Limuru's landscapes are a treasure. We ride responsibly, stick to trails, and actively support local conservation efforts in the tea and forest areas we ride through.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid rgba(255,255,255,0.06); padding-top:1.5rem;">
+      <span>© 2025 Limuru Cycling Club</span>
+      <span onclick="navTo(document.querySelectorAll('.nav-link')[7],'contact')" style="cursor:pointer; color:var(--green-light);">Contact Us →</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SHOP PAGE
+════════════════════════════════════════════ -->
+<div id="page-shop" class="page">
+  <div class="about-hero">
+    <div class="section-label">Ex UK Shop · Limuru Town</div>
+    <h1>BIKE <em>SHOP</em></h1>
+    <p class="sub">Opposite Njengi Plaza · Opposite Bata Shoe Company</p>
+  </div>
+
+  <section class="section">
+    <div class="shop-highlight">
+      <div class="shop-img-side">
+        <div class="img-slot" style="height:100%; aspect-ratio:unset; min-height:400px;">
+          <span class="icon">🏪</span>
+          <span>Shop Exterior Photo</span>
+        </div>
+      </div>
+      <div class="shop-text-side">
+        <span class="location-tag">📍 Limuru Town Centre</span>
+        <h2>THE <span class="text-gold">EX UK SHOP</span></h2>
+        <p>Located in the heart of Limuru Town, directly opposite Njengi Plaza and the famous Bata Shoe Company — you can't miss us. Our shop is stocked floor to ceiling with quality pre-owned bikes imported directly from the UK.</p>
+        <p>Why ex-UK? British cyclists take care of their bikes, invest in quality equipment, and replace them regularly. That means we get well-maintained machines from trusted brands — Trek, Specialized, Giant, Cube, Carrera — at a fraction of new prices.</p>
+        <p><strong style="color:var(--gold-light);">Opening Hours:</strong><br>Monday – Saturday: 7:00am – 7:00pm<br>Sunday: 7:00am – 5:00pm</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="section-label">Current Inventory</div>
+    <h2 class="section-title">BIKES IN<br><span>STOCK</span></h2>
+    <p class="section-desc">All bikes are imported from the UK, inspected, serviced, and priced fairly. Stock changes weekly — come in to see what's fresh.</p>
+
+    <div class="bikes-grid">
+      <div class="bike-card">
+        <div class="bike-img-slot"><span class="icon">🚵</span><span>Photo Slot</span></div>
+        <div class="bike-info">
+          <div class="bike-category">Mountain Bike</div>
+          <div class="bike-name">Hardtail MTB 29"</div>
+          <p class="bike-desc">21-speed Shimano, alloy frame, front fork suspension. Ideal for Limuru's off-road trails.</p>
+          <div class="bike-price"><sup>KSh </sup>18,500</div>
+        </div>
+      </div>
+      <div class="bike-card">
+        <div class="bike-img-slot"><span class="icon">🚴</span><span>Photo Slot</span></div>
+        <div class="bike-info">
+          <div class="bike-category">Road Bike</div>
+          <div class="bike-name">Lightweight Road Racer</div>
+          <p class="bike-desc">16-speed, alloy frame, drop bars. Fast and light for tarmac climbs through the highlands.</p>
+          <div class="bike-price"><sup>KSh </sup>22,000</div>
+        </div>
+      </div>
+      <div class="bike-card">
+        <div class="bike-img-slot"><span class="icon">🚲</span><span>Photo Slot</span></div>
+        <div class="bike-info">
+          <div class="bike-category">Hybrid</div>
+          <div class="bike-name">Urban Hybrid 700c</div>
+          <p class="bike-desc">Comfortable geometry, flat bars, 21-speed. Commute, errands, weekend rides — all in one.</p>
+          <div class="bike-price"><sup>KSh </sup>14,000</div>
+        </div>
+      </div>
+      <div class="bike-card">
+        <div class="bike-img-slot"><span class="icon">🚵</span><span>Photo Slot</span></div>
+        <div class="bike-info">
+          <div class="bike-category">Full Suspension MTB</div>
+          <div class="bike-name">Full Sus 26" Trail Bike</div>
+          <p class="bike-desc">Front and rear suspension for maximum comfort on rough terrain. Built for serious trail riding.</p>
+          <div class="bike-price"><sup>KSh </sup>28,000</div>
+        </div>
+      </div>
+      <div class="bike-card">
+        <div class="bike-img-slot"><span class="icon">👧</span><span>Photo Slot</span></div>
+        <div class="bike-info">
+          <div class="bike-category">Kids Bike</div>
+          <div class="bike-name">Youth 24" Mountain Bike</div>
+          <p class="bike-desc">Age 10–14 approx. Lightweight, 18-speed, perfect for young riders starting out on trails.</p>
+          <div class="bike-price"><sup>KSh </sup>8,500</div>
+        </div>
+      </div>
+      <div class="bike-card">
+        <div class="bike-img-slot"><span class="icon">👶</span><span>Photo Slot</span></div>
+        <div class="bike-info">
+          <div class="bike-category">Kids Bike</div>
+          <div class="bike-name">Junior 20" First Bike</div>
+          <p class="bike-desc">Age 7–10 approx. Great first proper bike — quality UK brand, safe and durable.</p>
+          <div class="bike-price"><sup>KSh </sup>5,500</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Accessories & Parts</div>
+    <h2 class="section-title">GEAR UP<br><span>PROPERLY</span></h2>
+    <div class="repair-list">
+      <div class="repair-item">
+        <div class="repair-num">01</div>
+        <div>
+          <h4>Helmets</h4>
+          <p>Road, MTB, and kids helmets. Safety comes first — we won't let you leave without one.</p>
+        </div>
+      </div>
+      <div class="repair-item">
+        <div class="repair-num">02</div>
+        <div>
+          <h4>Lights & Visibility</h4>
+          <p>Front and rear LED lights, reflective vests, and high-vis accessories for safe riding in all conditions.</p>
+        </div>
+      </div>
+      <div class="repair-item">
+        <div class="repair-num">03</div>
+        <div>
+          <h4>Tyres & Tubes</h4>
+          <p>Wide range of sizes for road, MTB and hybrid bikes. We also carry puncture repair kits.</p>
+        </div>
+      </div>
+      <div class="repair-item">
+        <div class="repair-num">04</div>
+        <div>
+          <h4>Gloves & Clothing</h4>
+          <p>Cycling gloves, padded shorts, jerseys, and base layers suited to Limuru's cool highland climate.</p>
+        </div>
+      </div>
+      <div class="repair-item">
+        <div class="repair-num">05</div>
+        <div>
+          <h4>Locks & Security</h4>
+          <p>D-locks, cable locks, and chain locks to keep your bike safe when parked around town.</p>
+        </div>
+      </div>
+      <div class="repair-item">
+        <div class="repair-num">06</div>
+        <div>
+          <h4>Bags & Carriers</h4>
+          <p>Saddle bags, handlebar bags, pannier racks and backpacks — carry everything you need on a long ride.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid rgba(255,255,255,0.06); padding-top:1.5rem;">
+      <span>© 2025 Limuru Cycling Club · Ex UK Shop</span>
+      <span onclick="navTo(document.querySelectorAll('.nav-link')[7],'contact')" style="cursor:pointer; color:var(--gold-light);">Enquire About Stock →</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CLUB PAGE
+════════════════════════════════════════════ -->
+<div id="page-club" class="page">
+  <div class="about-hero">
+    <div class="section-label">Club Membership & Training</div>
+    <h1>JOIN THE <em>CLUB</em></h1>
+    <p class="sub">Train Together · Ride Together · Grow Together</p>
+  </div>
+
+  <section class="section">
+    <div class="terrain-block">
+      <div class="terrain-text">
+        <div class="section-label">Why Join?</div>
+        <h2>MORE THAN A<br><span class="text-gold">GROUP RIDE</span></h2>
+        <p>When you join Limuru Cycling Club, you join a family. We have over 120 active members from across Limuru, Kiambu, and greater Nairobi — all brought together by a shared love of two wheels and Kenya's most beautiful terrain.</p>
+        <p>Members get access to weekly group rides, coaching sessions, bike maintenance workshops, priority discounts in the shop, and invitations to seasonal events and competitions.</p>
+        <button class="btn-primary mt-2" onclick="navTo(document.querySelectorAll('.nav-link')[7],'contact')">Register to Join</button>
+      </div>
+      <div>
+        <div class="img-slot" style="aspect-ratio:1/1;">
+          <span class="icon">👥</span>
+          <span>Group Photo — Club Ride</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="section-label">Training Schedule</div>
+    <h2 class="section-title">WEEKLY<br><span>PROGRAMME</span></h2>
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th>Day</th><th>Time</th><th>Session</th><th>Level</th><th>Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="day-badge">Tuesday</span></td>
+          <td>5:30am – 7:00am</td>
+          <td>Morning Fitness Ride</td>
+          <td><span class="level-badge level-intermediate">Intermediate</span></td>
+          <td>Meet at Ex UK Shop</td>
+        </tr>
+        <tr>
+          <td><span class="day-badge">Wednesday</span></td>
+          <td>6:00am – 8:00am</td>
+          <td>Beginners Group Ride</td>
+          <td><span class="level-badge level-beginner">Beginner</span></td>
+          <td>Limuru Town Centre</td>
+        </tr>
+        <tr>
+          <td><span class="day-badge">Thursday</span></td>
+          <td>5:30am – 7:30am</td>
+          <td>Interval & Hill Training</td>
+          <td><span class="level-badge level-advanced">Advanced</span></td>
+          <td>Njengi Road Climb</td>
+        </tr>
+        <tr>
+          <td><span class="day-badge">Saturday</span></td>
+          <td>6:00am – 10:00am</td>
+          <td>Weekend Tea Estate Trail</td>
+          <td><span class="level-badge level-intermediate">All Levels</span></td>
+          <td>Tigoni Roundabout</td>
+        </tr>
+        <tr>
+          <td><span class="day-badge">Sunday</span></td>
+          <td>6:30am – 11:00am</td>
+          <td>Long Endurance Ride</td>
+          <td><span class="level-badge level-advanced">Advanced</span></td>
+          <td>Kereita Forest Gate</td>
+        </tr>
+        <tr>
+          <td><span class="day-badge">Sunday</span></td>
+          <td>7:00am – 9:00am</td>
+          <td>Family & Kids Ride</td>
+          <td><span class="level-badge level-beginner">All Ages</span></td>
+          <td>Limuru Arboretum</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Membership Tiers</div>
+    <h2 class="section-title">CHOOSE YOUR<br><span>MEMBERSHIP</span></h2>
+    <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="feat-card" style="border-top: 3px solid rgba(74,140,63,0.4);">
+        <div class="feat-icon">🌱</div>
+        <h3>Basic Rider</h3>
+        <p style="margin-bottom:1rem;">Access to Wednesday beginner rides and Saturday trail rides. Newsletter and event updates.</p>
+        <div style="font-family:var(--font-display); font-size:2rem; color:var(--green-light);">KSh 500<span style="font-family:var(--font-condensed);font-size:0.85rem;color:var(--muted);">/month</span></div>
+      </div>
+      <div class="feat-card" style="border-top: 3px solid var(--gold);">
+        <div class="feat-icon">🏅</div>
+        <h3>Club Member</h3>
+        <p style="margin-bottom:1rem;">All rides and training sessions. Coaching, bike maintenance workshops, 10% shop discount, jersey included.</p>
+        <div style="font-family:var(--font-display); font-size:2rem; color:var(--gold-light);">KSh 1,200<span style="font-family:var(--font-condensed);font-size:0.85rem;color:var(--muted);">/month</span></div>
+      </div>
+      <div class="feat-card" style="border-top: 3px solid rgba(200,152,26,0.6);">
+        <div class="feat-icon">🏆</div>
+        <h3>Elite Racing</h3>
+        <p style="margin-bottom:1rem;">Everything in Club Member plus race preparation coaching, entry fees covered for selected events, priority fitting.</p>
+        <div style="font-family:var(--font-display); font-size:2rem; color:var(--white);">KSh 2,500<span style="font-family:var(--font-condensed);font-size:0.85rem;color:var(--muted);">/month</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid rgba(255,255,255,0.06); padding-top:1.5rem;">
+      <span>© 2025 Limuru Cycling Club</span>
+      <button class="btn-primary" onclick="navTo(document.querySelectorAll('.nav-link')[7],'contact')">Sign Up Today</button>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TRAILS PAGE
+════════════════════════════════════════════ -->
+<div id="page-trails" class="page">
+  <div class="about-hero" style="background: linear-gradient(to bottom, rgba(10,30,10,0.9), var(--dark));">
+    <div class="section-label">Outdoor Adventures · Limuru Highlands</div>
+    <h1>TRAILS &amp;<br><em>OUTDOORS</em></h1>
+    <p class="sub">Kenya's Best Kept Cycling Secret</p>
+  </div>
+
+  <section class="section">
+    <div class="terrain-block">
+      <div class="terrain-text">
+        <div class="section-label">The Terrain</div>
+        <h2>LIMURU AT <br><span class="text-gold">2,400M ABOVE<br>SEA LEVEL</span></h2>
+        <p>Perched on the edge of the Great Rift Valley, Limuru offers cycling terrain that is genuinely world-class. The cool climate, rich red earth, tea estate paths, eucalyptus forest tracks, and sweeping views make every ride an experience.</p>
+        <p>Routes range from gentle scenic loops through tea gardens suitable for beginners, to demanding technical descents and multi-hour endurance rides for experienced riders.</p>
+        <p>All our guided rides include a local guide who knows the terrain, weather, and best stops — often including chai breaks at local tea estates.</p>
+      </div>
+      <div>
+        <div class="img-slot" style="aspect-ratio:3/4;">
+          <span class="icon">🏔️</span>
+          <span>Rift Valley View Photo</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="section-label">Featured Routes</div>
+    <h2 class="section-title">OUR BEST<br><span>TRAILS</span></h2>
+    <div class="events-grid">
+      <div class="event-card">
+        <div class="event-img img-slot img-slot-sm">
+          <span class="icon">🌿</span><span>Tea Estate Trail Photo</span>
+        </div>
+        <div class="event-body">
+          <div class="event-date">⬤ 22km · Easy-Moderate · 2–3 hrs</div>
+          <h3>Tea Estates Loop</h3>
+          <p>Wind through endless green rows of tea in the Tigoni and Limuru tea belt. Scenic, peaceful and flat enough for all levels. A must-do on any first visit.</p>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-img img-slot img-slot-sm">
+          <span class="icon">🌲</span><span>Kereita Forest Photo</span>
+        </div>
+        <div class="event-body">
+          <div class="event-date">⬤ 35km · Advanced · 3–4 hrs</div>
+          <h3>Kereita Forest Descent</h3>
+          <p>A legendary descent into Kereita Forest with technical sections, river crossings, and dense indigenous forest. One of Kenya's best MTB trails.</p>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-img img-slot img-slot-sm">
+          <span class="icon">🏞️</span><span>Rift Valley Rim Photo</span>
+        </div>
+        <div class="event-body">
+          <div class="event-date">⬤ 50km · Advanced · 5–6 hrs</div>
+          <h3>Rift Valley Rim Ride</h3>
+          <p>Follow the dramatic escarpment edge with breathtaking valley views. Climbs, descents and some of the most spectacular cycling scenery in East Africa.</p>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-img img-slot img-slot-sm">
+          <span class="icon">🌅</span><span>Sunrise Ride Photo</span>
+        </div>
+        <div class="event-body">
+          <div class="event-date">⬤ 18km · Easy · 1.5–2 hrs</div>
+          <h3>Sunrise Tea Garden Spin</h3>
+          <p>Early morning gentle ride as the mist rolls over the tea estates. Perfect for beginners, families and anyone who wants to start the day right.</p>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-img img-slot img-slot-sm">
+          <span class="icon">🛤️</span><span>Kinale Ridge Photo</span>
+        </div>
+        <div class="event-body">
+          <div class="event-date">⬤ 40km · Intermediate · 3.5 hrs</div>
+          <h3>Kinale Ridge Circuit</h3>
+          <p>Rolling highland terrain through farming villages, past Kinale Forest and back around via the scenic Uplands road. A classic club route.</p>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-img img-slot img-slot-sm">
+          <span class="icon">🏘️</span><span>Village Trail Photo</span>
+        </div>
+        <div class="event-body">
+          <div class="event-date">⬤ 28km · Easy-Moderate · 2.5 hrs</div>
+          <h3>Uplands Village Loop</h3>
+          <p>A warm community route through highland villages, small farms, and local markets. Interact with residents and experience the real Limuru countryside.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-green">
+    <div class="section-label">Seasonal Events</div>
+    <h2 class="section-title">ANNUAL<br><span>HIGHLIGHTS</span></h2>
+    <div class="card-grid">
+      <div class="feat-card">
+        <div class="feat-icon">🏁</div>
+        <h3>Limuru Highland Classic</h3>
+        <p>Our flagship annual race — 60km through the best of Limuru terrain. Open to club members and invited riders. Held every July.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🌸</div>
+        <h3>Tea Blossom Gran Fondo</h3>
+        <p>A non-competitive mass participation ride during tea flowering season. Spectacular, social and open to all abilities. March every year.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🌙</div>
+        <h3>Full Moon Night Ride</h3>
+        <p>A magical monthly moonlit ride through the tea estates. Lights on, spirits high — one of our most beloved traditions.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">👨‍👩‍👧</div>
+        <h3>Family Fun Day Ride</h3>
+        <p>Annual family-friendly event with kids races, a picnic, and guided rides for all the family. Food, music and bikes in the highlands.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid rgba(255,255,255,0.06); padding-top:1.5rem;">
+      <span>© 2025 Limuru Cycling Club</span>
+      <span onclick="navTo(document.querySelectorAll('.nav-link')[3],'club')" style="cursor:pointer; color:var(--green-light);">Join Club to Access All Trails →</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     REPAIRS PAGE
+════════════════════════════════════════════ -->
+<div id="page-repairs" class="page">
+  <div class="about-hero">
+    <div class="section-label">Bike Workshop · Limuru</div>
+    <h1>REPAIRS &<br><em>WORKSHOP</em></h1>
+    <p class="sub">Keep Your Bike Running Perfectly</p>
+  </div>
+
+  <section class="section">
+    <div class="terrain-block">
+      <div>
+        <div class="img-slot" style="aspect-ratio:1/1;">
+          <span class="icon">🔧</span>
+          <span>Workshop Photo</span>
+        </div>
+      </div>
+      <div class="terrain-text">
+        <div class="section-label">Our Workshop</div>
+        <h2>EXPERT<br><span class="text-gold">MECHANICS<br>ON SITE</span></h2>
+        <p>Our fully equipped workshop is staffed by experienced bicycle mechanics who have seen and fixed everything. From a simple puncture to a complete frame rebuild — we handle it all, quickly and honestly.</p>
+        <p>Walk in, or book ahead for complex work. Most basic repairs are done same day. We use quality parts and will always show you what we've done and why.</p>
+        <p>We work on all bike types — mountain bikes, road bikes, hybrids, BMX, kids bikes, and fixies. Any brand, any age.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="section-label">What We Fix</div>
+    <h2 class="section-title">ALL REPAIRS<br><span>COVERED</span></h2>
+    <div class="repair-list">
+      <div class="repair-item">
+        <div class="repair-num">01</div>
+        <div><h4>Puncture Repair</h4><p>On the spot tube patching or full tube replacement. In and out in 20 minutes.</p></div>
+      </div>
+      <div class="repair-item">
+        <div class="repair-num">02</div>
+        <div><h4>Brake Service</h4><p>Brake pad replacement, cable adjustment, hydraulic bleed, caliper alignment. Stopping power restored.</p></div>
+      </div>
+      <div class="repair-item">
+        <div class="repair-num">03</div>
+        <div><h4>Gear Tuning</h4><p>Indexing, cable replacement, derailleur adjustment. Smooth shifting across all your gears.</p></div>
+      </div>
+      <div class="repair-item">
+        <div class="repair-num">04</div>
+        <div><h4>Chain & Drivetrain</h4><p>Chain replacement, cassette swap, chainring work, bottom bracket servicing and replacement.</p></div>
+      </div>
+      <div class="repair-item">
+        <div class="repair-num">05</div>
+        <div><h4>Wheel Truing</h4><p>Wobbly wheel? We'll true it back to running straight. Spoke replacement and tension work too.</p></div>
+      </div>
+      <div class="repair-item">
+        <div class="repair-num">06</div>
+        <div><h4>Full Service</h4><p>Complete head-to-toe overhaul. Clean, inspect, service every component. Like a new bike when it's done.</p></div>
+      </div>
+      <div class="repair-item">
+        <div class="repair-num">07</div>
+        <div><h4>Suspension Service</h4><p>Fork inspection, seal replacement, oil refresh, travel adjustment. Keep your suspension working as designed.</p></div>
+      </div>
+      <div class="repair-item">
+        <div class="repair-num">08</div>
+        <div><h4>Headset & Bearings</h4><p>Creaky, loose, or worn headset? We'll clean, adjust or replace to get that solid steering feel back.</p></div>
+      </div>
+      <div class="repair-item">
+        <div class="repair-num">09</div>
+        <div><h4>Bike Fitting</h4><p>Saddle height, reach, handlebar position — proper fit prevents injuries and makes every ride better.</p></div>
+      </div>
+      <div class="repair-item">
+        <div class="repair-num">10</div>
+        <div><h4>Custom Builds</h4><p>Building a dream bike from scratch? Bring us your parts or we'll source them. We love a custom build.</p></div>
+      </div>
+      <div class="repair-item">
+        <div class="repair-num">11</div>
+        <div><h4>Kids Bike Safety Check</h4><p>Before a child rides, we check everything — brakes, tyres, chain, bolts. Free with any part purchase.</p></div>
+      </div>
+      <div class="repair-item">
+        <div class="repair-num">12</div>
+        <div><h4>Rust Treatment</h4><p>Highland humidity is brutal on bikes. We clean, treat and protect against corrosion to extend your bike's life.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-green">
+    <div style="text-align:center; max-width:600px; margin:0 auto;">
+      <div class="section-label" style="justify-content:center;">Book Your Bike In</div>
+      <h2 class="section-title">BRING IT <span>IN TODAY</span></h2>
+      <p style="color:rgba(255,255,255,0.65); margin-bottom:2rem; line-height:1.75;">Walk-ins always welcome. For complex work or overhauls, a quick call ahead helps us set aside time for your bike. We're open 7 days a week from 7am.</p>
+      <button class="btn-primary" onclick="navTo(document.querySelectorAll('.nav-link')[7],'contact')">Get in Touch →</button>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid rgba(255,255,255,0.06); padding-top:1.5rem;">
+      <span>© 2025 Limuru Cycling Club Workshop</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     GALLERY PAGE
+════════════════════════════════════════════ -->
+<div id="page-gallery" class="page">
+  <div class="about-hero">
+    <div class="section-label">Photos & Memories</div>
+    <h1><em>GALLERY</em></h1>
+    <p class="sub">Life in the Limuru Cycling Community</p>
+  </div>
+
+  <section class="section">
+    <div class="section-label">Club Life</div>
+    <h2 class="section-title">MOMENTS FROM<br><span>THE SADDLE</span></h2>
+    <p class="section-desc">Add your photos here — rides, events, repairs, happy customers, and adventures through the tea country.</p>
+
+    <div class="gallery-masonry">
+      <div class="gallery-item">
+        <div class="img-slot" style="aspect-ratio:4/3;"><span class="icon">🚴</span><span>Group Ride Photo</span></div>
+        <div class="gallery-overlay">Group Ride</div>
+      </div>
+      <div class="gallery-item">
+        <div class="img-slot img-slot-sq"><span class="icon">🌿</span><span>Tea Estate Photo</span></div>
+        <div class="gallery-overlay">Tea Estates</div>
+      </div>
+      <div class="gallery-item">
+        <div class="img-slot" style="aspect-ratio:3/4;"><span class="icon">🏪</span><span>Shop Photo</span></div>
+        <div class="gallery-overlay">Ex UK Shop</div>
+      </div>
+      <div class="gallery-item">
+        <div class="img-slot" style="aspect-ratio:16/9;"><span class="icon">🏔️</span><span>Rift Valley View</span></div>
+        <div class="gallery-overlay">Rift Valley Rim</div>
+      </div>
+      <div class="gallery-item">
+        <div class="img-slot img-slot-sm"><span class="icon">🔧</span><span>Workshop Action</span></div>
+        <div class="gallery-overlay">Workshop</div>
+      </div>
+      <div class="gallery-item">
+        <div class="img-slot img-slot-sq"><span class="icon">🏆</span><span>Race Finish</span></div>
+        <div class="gallery-overlay">Highland Classic</div>
+      </div>
+      <div class="gallery-item">
+        <div class="img-slot" style="aspect-ratio:16/9;"><span class="icon">🌅</span><span>Sunrise Ride</span></div>
+        <div class="gallery-overlay">Sunrise Ride</div>
+      </div>
+      <div class="gallery-item">
+        <div class="img-slot img-slot-sm"><span class="icon">👨‍👩‍👧</span><span>Family Event</span></div>
+        <div class="gallery-overlay">Family Fun Day</div>
+      </div>
+      <div class="gallery-item">
+        <div class="img-slot" style="aspect-ratio:3/4;"><span class="icon">🌲</span><span>Forest Trail</span></div>
+        <div class="gallery-overlay">Kereita Forest</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid rgba(255,255,255,0.06); padding-top:1.5rem;">
+      <span>© 2025 Limuru Cycling Club</span>
+      <span style="color:rgba(255,255,255,0.3);">Submit your ride photos via WhatsApp</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CONTACT PAGE
+════════════════════════════════════════════ -->
+<div id="page-contact" class="page">
+  <div class="about-hero">
+    <div class="section-label">Get In Touch</div>
+    <h1>FIND <em>US</em></h1>
+    <p class="sub">Ex UK Shop · Limuru Town · Kenya</p>
+  </div>
+
+  <section class="section">
+    <div class="contact-grid">
+      <div>
+        <div class="section-label">Location & Hours</div>
+        <h2 class="section-title" style="font-size:2.5rem;">COME<br><span>VISIT US</span></h2>
+
+        <div class="contact-info-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <h4>Address</h4>
+            <p>Ex UK Shop, Limuru Town<br>Opposite Njengi Plaza<br>Opposite Bata Shoe Company<br>Limuru, Kiambu County, Kenya</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">⏰</div>
+          <div>
+            <h4>Opening Hours</h4>
+            <p>Monday – Saturday: 7:00am – 7:00pm<br>Sunday: 7:00am – 5:00pm<br>Public Holidays: 8:00am – 4:00pm</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <h4>Phone & WhatsApp</h4>
+            <p>+254 700 000 000<br>WhatsApp preferred for bike enquiries<br>and ride updates</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">📧</div>
+          <div>
+            <h4>Email</h4>
+            <p>info@limurucc.co.ke<br>shop@limurucc.co.ke</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">📱</div>
+          <div>
+            <h4>Social Media</h4>
+            <p>Facebook: Limuru Cycling Club<br>Instagram: @limurucc<br>WhatsApp Group: Ask in shop to join</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label">Send a Message</div>
+        <h2 class="section-title" style="font-size:2.5rem;">GET IN<br><span>TOUCH</span></h2>
+
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Your full name">
+        </div>
+        <div class="form-group">
+          <label>Phone / WhatsApp</label>
+          <input type="tel" placeholder="+254 ...">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>I'm interested in...</label>
+          <select>
+            <option>Buying a Bike</option>
+            <option>Joining the Club</option>
+            <option>Bike Repairs</option>
+            <option>Guided Trail Ride</option>
+            <option>Parts & Accessories</option>
+            <option>General Enquiry</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell us what you need..."></textarea>
+        </div>
+        <button class="btn-primary" style="width:100%; justify-content:center; display:block; text-align:center;">Send Message</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" style="padding:3rem;">
+    <div style="text-align:center;">
+      <div class="section-label" style="justify-content:center;">Map Location</div>
+      <h2 class="section-title" style="margin-bottom:1.5rem;">WHERE TO FIND <span>THE SHOP</span></h2>
+      <div class="img-slot" style="max-width:800px; margin:0 auto; aspect-ratio:16/6;">
+        <span class="icon">🗺️</span>
+        <span>Embed Google Map Here — Limuru Town Centre</span>
+      </div>
+      <p style="color:rgba(255,255,255,0.4); font-size:0.82rem; margin-top:1rem; font-family:var(--font-condensed); letter-spacing:0.1em; text-transform:uppercase;">Opposite Njengi Plaza · Opposite Bata Shoe Company · Limuru Town</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.6rem;">
+          <div class="nav-wheel"></div> LCC
+        </div>
+        <p>Limuru Cycling Club — Kenya's highland cycling home. Ex UK bikes, expert repairs, and unforgettable trail adventures.</p>
+      </div>
+      <div>
+        <h4>Pages</h4>
+        <ul>
+          <li onclick="navTo(document.querySelectorAll('.nav-link')[0],'home')">Home</li>
+          <li onclick="navTo(document.querySelectorAll('.nav-link')[1],'about')">About</li>
+          <li onclick="navTo(document.querySelectorAll('.nav-link')[2],'shop')">Shop</li>
+          <li onclick="navTo(document.querySelectorAll('.nav-link')[3],'club')">Club</li>
+          <li onclick="navTo(document.querySelectorAll('.nav-link')[4],'trails')">Trails</li>
+        </ul>
+      </div>
+      <div>
+        <h4>More</h4>
+        <ul>
+          <li onclick="navTo(document.querySelectorAll('.nav-link')[5],'repairs')">Repairs</li>
+          <li onclick="navTo(document.querySelectorAll('.nav-link')[6],'gallery')">Gallery</li>
+          <li onclick="navTo(document.querySelectorAll('.nav-link')[7],'contact')">Contact</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Location</h4>
+        <ul>
+          <li>Ex UK Shop, Limuru Town</li>
+          <li>Opp. Njengi Plaza</li>
+          <li>Opp. Bata Shoe Company</li>
+          <li>Mon–Sat: 7am–7pm</li>
+          <li>Sun: 7am–5pm</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Limuru Cycling Club. All rights reserved.</span>
+      <span>Made with ❤️ in Limuru, Kenya</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     JS
+════════════════════════════════════════════ -->
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function navTo(el, pageId) {
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    if (el && el.classList) el.classList.add('active');
+    showPage(pageId);
+  }
+
+  // Footer link helpers
+  document.querySelectorAll('footer li').forEach(li => {
+    if (!li.onclick) li.style.cursor = 'default';
+  });
+</script>
+</body>
+</html>
